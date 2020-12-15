@@ -1,0 +1,14 @@
+[package]
+name = "chiron"
+version = "1.0.0"
+authors = ["safinsingh <safinsingh.dev@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+anyhow = "1.0.35"
+regex = "1.4.2"
+serde = { version = "1.0.118", features = ["derive"] }
+toml = "0.5.7"
+
+# take a look at the following for deserialization directlky into boxed impls
+# serde_traitobject = "0.2.7"

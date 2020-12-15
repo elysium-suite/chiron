@@ -1,0 +1,20 @@
+# Round settings
+title = "Chiron Round 1"
+
+# Image settings
+user = "cpadmin"
+os = "Ubuntu 20.04"
+
+# Remote settings
+remote = "https://google.com"
+local = true
+
+[[check]]
+name = "Firewall is enabled"
+points = 10
+
+	[[check.pass]]
+	# all *contains checks are regex by default
+	type = "CommandContains"
+	command = "echo hello world"
+	contains = "^hello[[:space:]]world"
