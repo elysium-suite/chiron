@@ -53,7 +53,7 @@ impl Config {
 		let mut points = 0usize;
 
 		for check in self.check {
-			let mut scored = false;
+			let mut scored = true;
 			score_checks!(check, scored);
 
 			if scored {
