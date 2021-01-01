@@ -10,5 +10,11 @@ regex = "1.4.2"
 serde = { version = "1.0.118", features = ["derive"] }
 toml = "0.5.7"
 
+[target.'cfg(unix)'.dependencies]
+procfs = "0.9.1"
+
+[target.'cfg(windows)'.dependencies]
+winapi = { version = "0.3.9", features = ["debugapi"] }
+
 # take a look at the following for deserialization directlky into boxed impls
 # serde_traitobject = "0.2.7"
