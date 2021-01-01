@@ -1,6 +1,7 @@
+use anyhow::Result;
 use winapi::um::debugapi;
 
-pub(crate) fn check_trace() -> bool {
+pub(crate) fn check_trace() -> Result<bool> {
 	let present = unsafe { debugapi::IsDebuggerPresent() };
-	present != 0
+	Ok(present != 0)
 }

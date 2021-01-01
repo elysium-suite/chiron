@@ -10,7 +10,7 @@ use std::fs;
 
 fn main() -> Result<()> {
 	ensure!(
-		!trace::check_trace(),
+		!trace::check_trace()?,
 		"Detected engine tracing, killing engine!"
 	);
 
