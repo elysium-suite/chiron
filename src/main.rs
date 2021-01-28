@@ -1,23 +1,18 @@
-#[macro_use]
-mod macros;
-mod checks;
-mod config;
-mod trace;
-
 use anyhow::{ensure, Result};
-use config::Config;
+use libchiron::{arch, config::Config};
 use std::fs;
 
 fn main() -> Result<()> {
 	ensure!(
-		!trace::check_trace()?,
+		matches!(arch::check_trace(), Ok(false)),
 		"Detected engine tracing, killing engine!"
 	);
 
-	// TODO: read w clap (index = 1)
 	let raw = fs::read_to_string("examples/scoring.toml")?;
 	let config: Config = toml::from_str(&raw)?;
 
-	println!("{:?}", config.score());
+	for scored in config.score() {
+		println!("Check passed: {} - {} points", scored.name, scored.points);
+	}
 	Ok(())
 }

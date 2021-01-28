@@ -3,10 +3,14 @@ use anyhow::Result;
 use regex::Regex;
 use std::{process::Command, str};
 
-pub(crate) trait ScoreableCheck {
+/// Wrapper trait for all scorable checks
+#[typetag::serde(tag = "type")]
+pub trait ScoreableCheck {
+	/// Function that returns whether the check has passed or not
 	fn score(&self) -> Result<bool>;
 }
 
+#[typetag::serde]
 impl ScoreableCheck for CommandContains {
 	fn score(&self) -> Result<bool> {
 		let mut args = self.command.split(' ');

@@ -1,21 +1,12 @@
-macro_rules! score_checks {
-	($check:ident, $scored:ident) => {
-		// probably should look into rayon for parallel iters here? might be an
-		// issue for file locking tho. probably should put async on a todo list
-		if let Some(passes) = $check.pass {
-			for condition in passes {
-				if !matches!(condition.score(), Ok(true)) {
-					$scored = $scored && false;
-					}
-				}
+/// Used to score checks, `each_cond_contains` will iterate over a (possible)
+/// sequence of checks to ensure that their scored condition(s) are met
+#[macro_export]
+macro_rules! each_cond_contains {
+	($impl_iter:expr, $is:literal) => {{
+		let mut ret = true;
+		if let Some(ref iter) = $impl_iter {
+			ret = iter.iter().all(|cond| matches!(cond.score(), Ok($is)))
 			}
-
-		if let Some(passes) = $check.fail {
-			for condition in passes {
-				if matches!(condition.score(), Ok(true)) {
-					$scored = $scored && false;
-					}
-				}
-			}
-	};
+		ret
+		}};
 }
