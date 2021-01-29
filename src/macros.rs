@@ -6,7 +6,7 @@ macro_rules! each_cond_contains {
 		let mut ret = true;
 		if let Some(ref iter) = $impl_iter {
 			ret = iter.iter().all(|cond| matches!(cond.score(), Ok($is)))
-			}
+		}
 		ret
-		}};
+	}};
 }
