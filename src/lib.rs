@@ -3,6 +3,14 @@
 
 //! Chiron is a vulnerability scoring engine designed for ease of use
 
+/// Main directory for chiron and its data
+#[macro_export]
+macro_rules! chiron_dir {
+	() => {
+		"/opt/chiron/"
+	};
+}
+
 /// Architecture-specific funtions
 pub mod arch;
 
@@ -15,8 +23,5 @@ pub mod config;
 /// Crate-wide utility macros
 pub mod macros;
 
-/// Utility for Writing to Scoring Report
+/// Scoring utilities
 pub mod scoring;
-
-/// Scoring Report File
-pub const SCORING_REPORT: &str = "/opt/chiron/scoringreport.html";

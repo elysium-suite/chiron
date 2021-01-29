@@ -1,5 +1,5 @@
-use anyhow::{ensure, Result};
-use libchiron::{arch, config::Config, scoring, SCORING_REPORT};
+use anyhow::{ensure, Context, Result};
+use libchiron::{arch, config::Config, scoring::report};
 use std::fs;
 
 fn main() -> Result<()> {
@@ -8,8 +8,10 @@ fn main() -> Result<()> {
 		"Detected engine tracing, killing engine!"
 	);
 
-	let raw = fs::read_to_string("examples/scoring.toml")?;
-	let config = toml::from_str::<Config>(&raw)?;
+	let raw = fs::read_to_string("examples/scoring.toml")
+		.context("Failed to read scoring config!")?;
+	let config = toml::from_str::<Config>(&raw)
+		.context("Failed to parse scoring config!")?;
 
-	scoring::write_to_scoring_report(SCORING_REPORT, config.score())
+	report::generate(config.score())
 }
