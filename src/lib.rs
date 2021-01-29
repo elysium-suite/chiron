@@ -16,4 +16,7 @@ pub mod config;
 pub mod macros;
 
 /// Utility for Writing to Scoring Report
-pub mod scoringreport;
+pub mod scoring;
+
+/// Scoring Report File
+pub const SCORING_REPORT: &str = "/opt/chiron/scoringreport.html";

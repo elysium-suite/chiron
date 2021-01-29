@@ -1,6 +1,5 @@
 use anyhow::{ensure, Result};
-use libchiron::{arch, config::Config};
-use libchiron::scoringreport::write_to_scoring_report;
+use libchiron::{arch, config::Config, scoring, SCORING_REPORT};
 use std::fs;
 
 fn main() -> Result<()> {
@@ -10,9 +9,7 @@ fn main() -> Result<()> {
 	);
 
 	let raw = fs::read_to_string("examples/scoring.toml")?;
-  let config: Config = toml::from_str(&raw)?;
-  
-  write_to_scoring_report(&String::from("/opt/chiron/scoringreport.html"), config.score());
-  
-	Ok(())
+	let config: Config = toml::from_str(&raw)?;
+
+	scoring::write_to_scoring_report(SCORING_REPORT, config.score())
 }
