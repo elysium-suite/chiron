@@ -14,3 +14,6 @@ pub mod config;
 
 /// Crate-wide utility macros
 pub mod macros;
+
+/// Utility for Writing to Scoring Report
+pub mod scoringreport;
