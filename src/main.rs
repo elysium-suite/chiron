@@ -9,7 +9,7 @@ fn main() -> Result<()> {
 	);
 
 	let raw = fs::read_to_string("examples/scoring.toml")?;
-	let config: Config = toml::from_str(&raw)?;
+	let config = toml::from_str::<Config>(&raw)?;
 
 	scoring::write_to_scoring_report(SCORING_REPORT, config.score())
 }

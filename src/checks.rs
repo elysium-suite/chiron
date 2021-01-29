@@ -1,6 +1,6 @@
 use crate::config::CommandContains;
 use anyhow::Result;
-use regex::Regex;
+use regex::bytes::Regex;
 use std::{process::Command, str};
 
 /// Wrapper trait for all scorable checks
@@ -19,6 +19,6 @@ impl ScoreableCheck for CommandContains {
 		let stdout = Command::new(cmd).args(args).output()?.stdout;
 		let regex = Regex::new(&self.contains)?;
 
-		Ok(regex.is_match(str::from_utf8(&stdout)?))
+		Ok(regex.is_match(&stdout))
 	}
 }
