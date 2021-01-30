@@ -8,7 +8,7 @@ pub fn generate(checks: impl Iterator<Item = Check>) -> Result<()> {
 	let to_write = format!(
 		"<ol>{}</ol>",
 		checks
-		.map(|c| format!("<li>{} - {} points</li>", c.name, c.points))
+			.map(|c| format!("<li>{} - {} points</li>", c.name, c.points))
 			.collect::<Vec<_>>()
 			.join("\n")
 	);
