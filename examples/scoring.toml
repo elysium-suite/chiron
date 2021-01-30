@@ -18,3 +18,11 @@ points = 10
 	type = "CommandContains"
 	command = "echo hello world"
 	contains = "^hello[[:space:]]world"
+
+[[check]]
+name = "Auditd has been installed"
+points = 10
+
+	[[check.pass]]
+	type = "PackageInstalled"
+	package = "auditd"
