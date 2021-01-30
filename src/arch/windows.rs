@@ -9,8 +9,6 @@ pub fn check_trace() -> Result<bool> {
 	Ok(present != 0)
 }
 
-#[typetag::serde]
-impl ScoreableCheck for PackageInstalled {
-	fn score(&self) -> Result<bool> {
-	}
+/// Check if package is installed
+pub fn package_installed(package: &str) {
 }

@@ -1,5 +1,3 @@
-use crate::checks::ScoreableCheck;
-use crate::config::PackageInstalled;
 use anyhow::Result;
 use procfs::process::Process;
 use apt_pkg_native::Cache;
@@ -11,9 +9,7 @@ pub fn check_trace() -> Result<bool> {
 	Ok(status.tracerpid != 0)
 }
 
-#[typetag::serde]
-impl ScoreableCheck for PackageInstalled {
-	fn score(&self) -> Result<bool> {
-		Ok(!matches!(Cache::get_singleton().find_by_name(&self.package).next(), None))
-	}
+/// Check if package is installed
+pub fn package_installed(package: &str) -> Result<bool> {
+	Ok(!matches!(Cache::get_singleton().find_by_name(&package).next(), None))
 }
