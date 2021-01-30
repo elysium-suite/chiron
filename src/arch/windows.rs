@@ -8,3 +8,9 @@ pub fn check_trace() -> Result<bool> {
 	let present = unsafe { debugapi::IsDebuggerPresent() };
 	Ok(present != 0)
 }
+
+#[typetag::serde]
+impl ScoreableCheck for PackageInstalled {
+	fn score(&self) -> Result<bool> {
+	}
+}
