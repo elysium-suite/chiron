@@ -43,6 +43,7 @@ jobs:
           toolchain: nightly
           override: true
           components: clippy
+        run: apt install -y libapt-pkg-dev
       - uses: actions/checkout@v2
       - name: Lint
         run: cargo clippy -- -D warnings
