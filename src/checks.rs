@@ -34,6 +34,6 @@ impl ScoreableCheck for PackageInstalled {
 #[typetag::serde]
 impl ScoreableCheck for FilePermissions {
 	fn score(&self) -> Result<bool> {
-		file_permissions(&self.file, &self.perms)
+		file_permissions(&self.file, self.perms)
 	}
 }
