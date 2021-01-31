@@ -1,6 +1,6 @@
 use crate::{
-	arch::package_installed,
-	config::{CommandContains, PackageInstalled},
+	arch::{file_permissions, package_installed},
+	config::{CommandContains, FilePermissions, PackageInstalled},
 };
 use anyhow::Result;
 use regex::bytes::Regex;
@@ -29,4 +29,11 @@ impl ScoreableCheck for CommandContains {
 #[typetag::serde]
 impl ScoreableCheck for PackageInstalled {
 	fn score(&self) -> Result<bool> { package_installed(&self.package) }
+}
+
+#[typetag::serde]
+impl ScoreableCheck for FilePermissions {
+	fn score(&self) -> Result<bool> {
+		file_permissions(&self.file, &self.perms)
+	}
 }

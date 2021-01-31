@@ -26,3 +26,12 @@ points = 10
 	[[check.pass]]
 	type = "PackageInstalled"
 	package = "auditd"
+
+[[check]]
+name = "Fixed permissions for /etc/passwd"
+points = 10
+
+	[[check.pass]]
+	type = "FilePermissions"
+	file = "/etc/passwd"
+	perms = "0644"

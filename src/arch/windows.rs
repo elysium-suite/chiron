@@ -11,3 +11,6 @@ pub fn check_trace() -> Result<bool> {
 
 /// Check if package is installed
 pub fn package_installed(package: &str) -> Result<bool> { todo!() }
+
+/// Check if file permissions are secured
+pub fn file_permissions(file: &str, perms: &str) -> Result<bool> { todo!() }
