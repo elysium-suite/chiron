@@ -1,6 +1,8 @@
 use anyhow::Result;
 use apt_pkg_native::Cache;
 use procfs::process::Process;
+use std::{process::Command, str};
+use regex::bytes::Regex;
 
 /// Check if the process is being traced by checking `/proc/self/status` for
 /// `tracerpid`
@@ -15,4 +17,17 @@ pub fn package_installed(package: &str) -> Result<bool> {
 		Cache::get_singleton().find_by_name(&package).next(),
 		None
 	))
+}
+
+/// Check if file permissions are secured
+pub fn file_permissions(file: &str, perms: &str) -> Result<bool> {
+	let stdout = Command::new("stat")
+		.arg("-c")
+		.arg("'%a'")
+		.arg(&file)
+		.output()?
+		.stdout;
+	let regex = Regex::new(&perms)?;
+
+	Ok(regex.is_match(&stdout))
 }
