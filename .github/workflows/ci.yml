@@ -8,10 +8,7 @@ env:
   CARGO_TERM_COLOR: always
 jobs:
   build-linux:
-    strategy:
-      matrix:
-        os: ubuntu-latest
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
       - name: Set up
         uses: actions-rs/toolchain@v1
@@ -23,10 +20,7 @@ jobs:
       - name: Build
         run: cargo build
   build-windows:
-    strategy:
-      matrix:
-        os: windows-latest
-    runs-on: ${{ matrix.os }}
+    runs-on: windows-latest
     steps:
       - name: Set up
         uses: actions-rs/toolchain@v1
