@@ -17,6 +17,15 @@ pub struct PackageInstalled {
 	pub package: String,
 }
 
+/// A check for file permissions.
+#[derive(Serialize, Deserialize, Debug)]
+pub struct FilePermissions {
+	/// File to check
+	pub file: String,
+	/// Secured permissions
+	pub perms: String,
+}
+
 /// Main check structure; contains check metadata as well as conditions
 #[derive(Serialize, Deserialize)]
 pub struct Check {
