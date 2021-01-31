@@ -23,7 +23,7 @@ pub struct FilePermissions {
 	/// File to check
 	pub file: String,
 	/// Secured permissions
-	pub perms: u32,
+	pub perms: String,
 }
 
 /// Main check structure; contains check metadata as well as conditions
