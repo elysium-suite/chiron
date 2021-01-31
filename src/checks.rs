@@ -1,4 +1,7 @@
-use crate::{arch::{file_permissions, package_installed}, config::{CommandContains, FilePermissions, PackageInstalled}};
+use crate::{
+	arch::{file_permissions, package_installed},
+	config::{CommandContains, FilePermissions, PackageInstalled},
+};
 use anyhow::Result;
 use regex::bytes::Regex;
 use std::{process::Command, str};
@@ -30,5 +33,7 @@ impl ScoreableCheck for PackageInstalled {
 
 #[typetag::serde]
 impl ScoreableCheck for FilePermissions {
-	fn score(&self) -> Result<bool> { file_permissions(&self.file, &self.perms) }
+	fn score(&self) -> Result<bool> {
+		file_permissions(&self.file, &self.perms)
+	}
 }
