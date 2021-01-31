@@ -10,5 +10,6 @@ pub fn check_trace() -> Result<bool> {
 }
 
 /// Check if package is installed
-pub fn package_installed(package: &str) {
+pub fn package_installed(package: &str) -> Result<bool> {
+  todo!()
 }
