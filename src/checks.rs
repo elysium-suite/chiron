@@ -1,5 +1,7 @@
-use crate::config::{CommandContains, PackageInstalled};
-use crate::arch::package_installed;
+use crate::{
+	arch::package_installed,
+	config::{CommandContains, PackageInstalled},
+};
 use anyhow::Result;
 use regex::bytes::Regex;
 use std::{process::Command, str};
@@ -25,8 +27,6 @@ impl ScoreableCheck for CommandContains {
 }
 
 #[typetag::serde]
-impl ScoreableCheck for PackageInstalled { 
-	fn score(&self) -> Result<bool> {
-		package_installed(&self.package)
-	}
+impl ScoreableCheck for PackageInstalled {
+	fn score(&self) -> Result<bool> { package_installed(&self.package) }
 }
