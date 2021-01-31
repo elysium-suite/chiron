@@ -34,4 +34,4 @@ points = 10
 	[[check.pass]]
 	type = "FilePermissions"
 	file = "/etc/passwd"
-	perms = "644"
+	perms = 644
