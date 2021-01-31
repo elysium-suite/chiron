@@ -8,3 +8,6 @@ pub fn check_trace() -> Result<bool> {
 	let present = unsafe { debugapi::IsDebuggerPresent() };
 	Ok(present != 0)
 }
+
+/// Check if package is installed
+pub fn package_installed(package: &str) -> Result<bool> { todo!() }

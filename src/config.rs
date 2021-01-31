@@ -10,6 +10,13 @@ pub struct CommandContains {
 	pub contains: String,
 }
 
+/// A check to ensure a package is installed.
+#[derive(Serialize, Deserialize, Debug)]
+pub struct PackageInstalled {
+	/// Package that should be installed
+	pub package: String,
+}
+
 /// Main check structure; contains check metadata as well as conditions
 #[derive(Serialize, Deserialize)]
 pub struct Check {
