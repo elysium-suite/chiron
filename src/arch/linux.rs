@@ -1,8 +1,7 @@
 use anyhow::Result;
 use apt_pkg_native::Cache;
 use procfs::process::Process;
-use std::fs::File;
-use std::os::unix::fs::PermissionsExt;
+use std::{fs::File, os::unix::fs::PermissionsExt};
 
 /// Check if the process is being traced by checking `/proc/self/status` for
 /// `tracerpid`
@@ -21,8 +20,8 @@ pub fn package_installed(package: &str) -> Result<bool> {
 
 /// Check if file permissions are secured
 pub fn file_permissions(file: &str, perms: u32) -> Result<bool> {
-        let f = File::open(&file)?;
-        let metadata = f.metadata()?;
-        let current_perms = metadata.permissions().mode();
-	Ok(current_perms == perms+100000)
+	let f = File::open(&file)?;
+	let metadata = f.metadata()?;
+	let current_perms = metadata.permissions().mode();
+	Ok(current_perms == perms + 100000)
 }
