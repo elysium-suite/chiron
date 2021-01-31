@@ -21,7 +21,6 @@ pub fn package_installed(package: &str) -> Result<bool> {
 /// Check if file permissions are secured
 pub fn file_permissions(file: &str, perms: &str) -> Result<bool> {
 	let f = File::open(&file)?;
-	let metadata = f.metadata()?;
-	let current_perms = metadata.permissions().mode();
-	Ok((current_perms & 0o7777) == u32::from_str_radix(&perms, 8)?)
+	Ok((f.metadata()?.permissions().mode() & 0o7777)
+		== u32::from_str_radix(&perms, 8)?)
 }
