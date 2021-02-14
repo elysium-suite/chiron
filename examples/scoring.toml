@@ -35,3 +35,11 @@ points = 10
 	type = "FilePermissions"
 	file = "/etc/passwd"
 	perms = "0644"
+
+[[check]]
+name = "Firewall enabled"
+points = 10
+
+	[[check.pass]]
+	type = "FirewallEnabled"
+
