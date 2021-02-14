@@ -29,7 +29,6 @@ pub fn file_permissions(file: &str, perms: &str) -> Result<bool> {
 /// Check if firewall is enabled
 pub fn firewall_enabled() -> Result<bool> {
 	let stdout = Command::new("ufw").arg("status").output()?.stdout;
-	let regex = Regex::new("Status: active")?;
-
-	Ok(regex.is_match(&stdout))
+	
+	Ok(str::from_utf8(&stdout)?.contains("Status: active"))
 }
