@@ -1,5 +1,7 @@
 use anyhow::Result;
+use regex::bytes::Regex;
 use apt_pkg_native::Cache;
+use std::process::Command;
 use procfs::process::Process;
 use std::{fs::File, os::unix::fs::PermissionsExt};
 
@@ -23,4 +25,12 @@ pub fn file_permissions(file: &str, perms: &str) -> Result<bool> {
 	let f = File::open(&file)?;
 	Ok((f.metadata()?.permissions().mode() & 0o7777)
 		== u32::from_str_radix(&perms, 8)?)
+}
+
+/// Check if firewall is enabled
+pub fn firewall_enabled() -> Result<bool> {
+	let stdout = Command::new("ufw").arg("status").output()?.stdout;
+	let regex = Regex::new("Status: active")?;
+	
+	Ok(regex.is_match(&stdout))
 }
