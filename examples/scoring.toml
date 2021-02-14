@@ -10,7 +10,7 @@ remote = "https://google.com"
 local = true
 
 [[check]]
-name = "Firewall is enabled"
+name = "Hello World"
 points = 10
 
 	[[check.pass]]
