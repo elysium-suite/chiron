@@ -1,9 +1,8 @@
-use std::str;
 use anyhow::Result;
 use apt_pkg_native::Cache;
 use procfs::process::Process;
 use regex::bytes::Regex;
-use std::{fs::File, os::unix::fs::PermissionsExt, process::Command};
+use std::{fs::File, os::unix::fs::PermissionsExt, process::Command, str};
 
 /// Check if the process is being traced by checking `/proc/self/status` for
 /// `tracerpid`
