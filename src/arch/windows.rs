@@ -14,3 +14,6 @@ pub fn package_installed(package: &str) -> Result<bool> { todo!() }
 
 /// Check if file permissions are secured
 pub fn file_permissions(file: &str, perms: &str) -> Result<bool> { todo!() }
+
+/// Check if firewall is enabled
+pub fn firewall_enabled() -> Result<bool> { todo!() }
