@@ -1,9 +1,8 @@
 use anyhow::Result;
-use regex::bytes::Regex;
 use apt_pkg_native::Cache;
-use std::process::Command;
 use procfs::process::Process;
-use std::{fs::File, os::unix::fs::PermissionsExt};
+use regex::bytes::Regex;
+use std::{fs::File, os::unix::fs::PermissionsExt, process::Command};
 
 /// Check if the process is being traced by checking `/proc/self/status` for
 /// `tracerpid`
@@ -31,6 +30,6 @@ pub fn file_permissions(file: &str, perms: &str) -> Result<bool> {
 pub fn firewall_enabled() -> Result<bool> {
 	let stdout = Command::new("ufw").arg("status").output()?.stdout;
 	let regex = Regex::new("Status: active")?;
-	
+
 	Ok(regex.is_match(&stdout))
 }
