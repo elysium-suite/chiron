@@ -1,6 +1,8 @@
 use crate::{
-	arch::{file_permissions, package_installed},
-	config::{CommandContains, FilePermissions, PackageInstalled},
+	arch::{file_permissions, firewall_enabled, package_installed},
+	config::{
+		CommandContains, FilePermissions, FirewallEnabled, PackageInstalled,
+	},
 };
 use anyhow::Result;
 use regex::bytes::Regex;
@@ -36,4 +38,9 @@ impl ScoreableCheck for FilePermissions {
 	fn score(&self) -> Result<bool> {
 		file_permissions(&self.file, &self.perms)
 	}
+}
+
+#[typetag::serde]
+impl ScoreableCheck for FirewallEnabled {
+	fn score(&self) -> Result<bool> { firewall_enabled() }
 }

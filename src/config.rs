@@ -26,6 +26,10 @@ pub struct FilePermissions {
 	pub perms: String,
 }
 
+/// A check for firewall.
+#[derive(Serialize, Deserialize, Debug)]
+pub struct FirewallEnabled {}
+
 /// Main check structure; contains check metadata as well as conditions
 #[derive(Serialize, Deserialize)]
 pub struct Check {

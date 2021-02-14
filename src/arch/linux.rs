@@ -1,7 +1,7 @@
 use anyhow::Result;
 use apt_pkg_native::Cache;
 use procfs::process::Process;
-use std::{fs::File, os::unix::fs::PermissionsExt};
+use std::{fs::File, os::unix::fs::PermissionsExt, process::Command, str};
 
 /// Check if the process is being traced by checking `/proc/self/status` for
 /// `tracerpid`
@@ -23,4 +23,11 @@ pub fn file_permissions(file: &str, perms: &str) -> Result<bool> {
 	let f = File::open(&file)?;
 	Ok((f.metadata()?.permissions().mode() & 0o7777)
 		== u32::from_str_radix(&perms, 8)?)
+}
+
+/// Check if firewall is enabled
+pub fn firewall_enabled() -> Result<bool> {
+	let stdout = Command::new("ufw").arg("status").output()?.stdout;
+
+	Ok(str::from_utf8(&stdout)?.contains("Status: active"))
 }
