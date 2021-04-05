@@ -1,22 +1,21 @@
-use crate::{
-	arch::{file_permissions, firewall_enabled, package_installed},
-	config::{
-		CommandContains, FilePermissions, FirewallEnabled, PackageInstalled,
-	},
+use crate::config::{
+	CommandContains, FilePermissions, FirewallEnabled, PackageInstalled,
 };
+use crate::sys::{file_permissions, firewall_enabled, package_installed};
 use anyhow::Result;
 use regex::bytes::Regex;
-use std::{process::Command, str};
+use std::process::Command;
+use std::str;
 
 /// Wrapper trait for all scorable checks
 #[typetag::serde(tag = "type")]
-pub trait ScoreableCheck {
+pub trait Scorable {
 	/// Function that returns whether the check has passed or not
 	fn score(&self) -> Result<bool>;
 }
 
 #[typetag::serde]
-impl ScoreableCheck for CommandContains {
+impl Scorable for CommandContains {
 	fn score(&self) -> Result<bool> {
 		let mut args = self.command.split(' ');
 		let cmd = args.next().unwrap();
@@ -29,18 +28,18 @@ impl ScoreableCheck for CommandContains {
 }
 
 #[typetag::serde]
-impl ScoreableCheck for PackageInstalled {
+impl Scorable for PackageInstalled {
 	fn score(&self) -> Result<bool> { package_installed(&self.package) }
 }
 
 #[typetag::serde]
-impl ScoreableCheck for FilePermissions {
+impl Scorable for FilePermissions {
 	fn score(&self) -> Result<bool> {
 		file_permissions(&self.file, &self.perms)
 	}
 }
 
 #[typetag::serde]
-impl ScoreableCheck for FirewallEnabled {
+impl Scorable for FirewallEnabled {
 	fn score(&self) -> Result<bool> { firewall_enabled() }
 }

@@ -9,15 +9,16 @@ path = "src/lib.rs"
 name = "libchiron"
 
 [dependencies]
-anyhow = "1.0.35"
-regex = "1.4.2"
-serde = { version = "1.0.118", features = ["derive"] }
-toml = "0.5.7"
-typetag = "0.1.7"
+anyhow = "1"
+const_format = "0.2"
+regex = "1"
+serde = { version = "1", features = ["derive"] }
+toml = "0.5"
+typetag = "0.1"
 
 [target.'cfg(unix)'.dependencies]
-procfs = "0.9.1"
-apt-pkg-native = "0.3.2"
+procfs = "0.9"
+apt-pkg-native = "0.3"
 
 [target.'cfg(windows)'.dependencies]
-winapi = { version = "0.3.9", features = ["debugapi"] }
+winapi = { version = "0.3", features = ["debugapi"] }

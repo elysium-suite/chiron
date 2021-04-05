@@ -1,10 +1,12 @@
 use anyhow::{ensure, Context, Result};
-use libchiron::{arch, config::Config, scoring::report};
+use libchiron::config::Config;
+use libchiron::scoring::report;
+use libchiron::sys;
 use std::fs;
 
 fn main() -> Result<()> {
 	ensure!(
-		matches!(arch::check_trace(), Ok(false)),
+		matches!(sys::check_trace(), Ok(false)),
 		"Detected engine tracing, killing engine!"
 	);
 

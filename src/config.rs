@@ -1,4 +1,4 @@
-use crate::{checks::ScoreableCheck, each_cond_contains};
+use crate::check::Scorable;
 use serde::{Deserialize, Serialize};
 
 /// A check to ensure that a system command will contain a certain value.
@@ -26,7 +26,7 @@ pub struct FilePermissions {
 	pub perms: String,
 }
 
-/// A check for firewall.
+/// A check to ensure that the firewall is enabled.
 #[derive(Serialize, Deserialize, Debug)]
 pub struct FirewallEnabled {}
 
@@ -37,8 +37,17 @@ pub struct Check {
 	pub name: String,
 	/// Points to award if the check succeeds
 	pub points: usize,
-	pass: Option<Vec<Box<dyn ScoreableCheck>>>,
-	fail: Option<Vec<Box<dyn ScoreableCheck>>>,
+	#[serde(default)]
+	pass: Vec<Box<dyn Scorable>>,
+	#[serde(default)]
+	fail: Vec<Box<dyn Scorable>>,
+}
+
+impl Check {
+	fn met(&self) -> bool {
+		self.pass.iter().all(|c| matches!(c.score(), Ok(true)))
+			&& self.fail.iter().all(|c| matches!(c.score(), Ok(false)))
+	}
 }
 
 /// Generic configuration struct for Chiron. Contains image metadata as well as
@@ -56,9 +65,6 @@ pub struct Config {
 impl Config {
 	/// Score all checks in the configuration.
 	pub fn score(self) -> impl Iterator<Item = Check> {
-		self.check.into_iter().filter(|check| {
-			each_cond_contains!(check.fail, false)
-				&& each_cond_contains!(check.pass, true)
-		})
+		self.check.into_iter().filter(Check::met)
 	}
 }
