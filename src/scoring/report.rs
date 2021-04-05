@@ -1,7 +1,9 @@
-use super::SCORING_REPORT_FILE;
 use crate::config::Check;
-use anyhow::{Context, Result};
-use std::fs;
+use crate::CHIRON_DIR;
+use anyhow::Result;
+use std::fs::OpenOptions;
+use std::io::Write;
+use std::path::PathBuf;
 
 /// Generate the scoring report given an iterator over checks
 pub fn generate(checks: impl Iterator<Item = Check>) -> Result<()> {
@@ -13,6 +15,9 @@ pub fn generate(checks: impl Iterator<Item = Check>) -> Result<()> {
 			.join("\n")
 	);
 
-	fs::write(SCORING_REPORT_FILE, to_write)
-		.context("Failed to write to scoring report!")
+	let mut handle = OpenOptions::new()
+		.write(true)
+		.create(true)
+		.open(PathBuf::from(CHIRON_DIR).join("scoring.html"))?;
+	handle.write_all(to_write.as_bytes()).map_err(Into::into)
 }

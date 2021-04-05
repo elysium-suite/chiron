@@ -12,9 +12,6 @@ jobs:
     steps:
       - name: Set up
         uses: actions-rs/toolchain@v1
-        with:
-          toolchain: nightly
-          override: true
       - run: sudo apt install -y libapt-pkg-dev
       - uses: actions/checkout@v2
       - name: Build
@@ -24,9 +21,6 @@ jobs:
     steps:
       - name: Set up
         uses: actions-rs/toolchain@v1
-        with:
-          toolchain: nightly
-          override: true
       - uses: actions/checkout@v2
       - name: Build
         run: cargo build

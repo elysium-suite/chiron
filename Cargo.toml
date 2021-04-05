@@ -10,6 +10,7 @@ name = "libchiron"
 
 [dependencies]
 anyhow = "1"
+clap = "3.0.0-beta.2"
 const_format = "0.2"
 regex = "1"
 serde = { version = "1", features = ["derive"] }
@@ -18,7 +19,10 @@ typetag = "0.1"
 
 [target.'cfg(unix)'.dependencies]
 procfs = "0.9"
-apt-pkg-native = "0.3"
 
 [target.'cfg(windows)'.dependencies]
 winapi = { version = "0.3", features = ["debugapi"] }
+
+[target.'cfg(unix)'.build-dependencies]
+cc = "1"
+bindgen = "0.58"
