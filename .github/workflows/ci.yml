@@ -14,6 +14,8 @@ jobs:
         uses: actions-rs/toolchain@v1
       - run: sudo apt install -y libdpkg-dev
       - uses: actions/checkout@v2
+        with:
+          toolchain: stable
       - name: Build
         run: cargo build
   build-windows:
@@ -22,6 +24,8 @@ jobs:
       - name: Set up
         uses: actions-rs/toolchain@v1
       - uses: actions/checkout@v2
+        with:
+          toolchain: stable
       - name: Build
         run: cargo build
   format:
