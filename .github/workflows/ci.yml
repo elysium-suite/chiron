@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Set up
         uses: actions-rs/toolchain@v1
-      - run: sudo apt install -y libapt-pkg-dev
+      - run: sudo apt install -y libdpkg-dev
       - uses: actions/checkout@v2
       - name: Build
         run: cargo build
@@ -45,7 +45,7 @@ jobs:
           toolchain: nightly
           override: true
           components: clippy
-      - run: sudo apt install -y libapt-pkg-dev
+      - run: sudo apt install -y libdpkg-dev
       - uses: actions/checkout@v2
       - name: Lint
         run: cargo clippy -- -D warnings
